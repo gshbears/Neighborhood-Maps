@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: "Times New Roman", cursive, serif;
 }
 
 .App-logo {
@@ -8,25 +9,140 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  /*  https://uigradients.com/    */
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+/*  min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
 }
+.App-footer {
+  background: #0575E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+  color: white;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+}
+.map-canvas {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  background-color: #ccc;
+}
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.search-venues {
+  width: 100%;
+  padding: 5px 5px;
+  font-size: 1.0em;
+  border: none;
+  outline: none;
+}
+.go-venues{
+  width: 100%;
+  padding: 5px 5px;
+  font-size: 1.0em;
+  color: white;
+  background-color: #021B79;
+}
+
+/*  hamburger icon slide out menu  https://github.com/negomi/react-burger-menu#styling  */
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 20px;
+  top: 120px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+  left: 85%;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+
+  padding: 2.5em 1.5em 0;
+  font-size: 1.0em;
+  background: rgba(0, 0, 0, 0.4);
+}
+.menu-item{
+  color: white;
+    padding: 0.8em;
+    text-align: center;
+}
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+.fourSquare{
+    width: 200px;
+    height: auto;
+}
+.fourSquareInfo{
+  width: 150px;
+  height: auto;
+  padding-top: 20px;
+}
+/*=================response work=====================*/
+@media screen and  (min-width: 343px)  {
+  .bm-burger-button {
+    top: 90px;
   }
-  to {
-    transform: rotate(360deg);
+}
+@media screen and  (min-width: 490px)  {
+  .bm-burger-button {
+    top: 100px;
+  }
+}
+@media screen and (min-width: 553px) {
+  .bm-burger-button {
+    top: 110px;
   }
 }

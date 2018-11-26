@@ -1,25 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route } from 'react-router-dom'
 import './App.css';
+import MapMain from './MapMain'
+import * as VenuesAPI from './VenuesAPI'
+
 
 class App extends Component {
+  state = {
+  venues: [],
+  pageHeight: "0"
+  }
+  /*  need to get foursquare venues */
+
+  async componentDidMount() {
+
+    const venues =  await VenuesAPI.getAllVenues()
+
+    if ( typeof (venues[0].venue) === 'undefined') {
+      alert("Oops, Could not retrive Foursquare data. Possible conection and/or credential issue.")
+      this.setState({
+        venues : [],
+        pageHeight : document.documentElement.offsetHeight
+      });
+    }else{
+      this.setState({
+        venues : venues,
+        pageHeight : document.documentElement.offsetHeight
+      });
+    }
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Route exact path='/' render={() =>(
+          <MapMain
+            venues={this.state.venues}
+            pageHeight = {this.state.pageHeight}
+            />
+        )}/>
       </div>
     );
   }
