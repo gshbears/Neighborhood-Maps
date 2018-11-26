@@ -1,5 +1,5 @@
 
-# MyReads Project
+# Neighborhood Map
 
 The Neighborhood Map application to highlight points of interests for selected location. The application reinforces learnings from the Udacity FEND course.  The some of the react topics include building react components, routing, states, props, linking and Asynchronous API Requests. The application allows a user to search through venues, view on Google maps and check out FOURSQUARE iunformation.
 
