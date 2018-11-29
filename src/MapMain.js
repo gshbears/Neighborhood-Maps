@@ -13,30 +13,59 @@ class MapMain extends PureComponent {
   state = {
     menuOpen: false,
     showingVenues: [],
-    query: ''
+    query: '',
+    selectedVenueID: '',
+    tabIndexValue: -1
   }
+
   // This keeps your state in sync with the opening/closing of the menu
   // via the default means, e.g. clicking the X, pressing the ESC key etc.
   handleStateChange (state) {
-    this.setState({menuOpen: state.isOpen})
+    let tabindex
+    if (state.isOpen=== true){
+      tabindex = "0";
+    }else{
+      tabindex = "-1";
+    }
+    this.setState({
+      menuOpen: state.isOpen,
+      tabIndexValue: tabindex
+    })
   }
   // This can be used to close the menu, e.g. when a user clicks a menu item
   closeMenu () {
-    this.setState({menuOpen: false})
+    this.setState({
+      menuOpen: false,
+      tabIndexValue: "-1"
+    })
   }
   // This can be used to toggle the menu, e.g. when using a custom icon
   // Tip: You probably want to hide either/both default icons if using a custom icon
   // See https://github.com/negomi/react-burger-menu#custom-icons
   toggleMenu () {
-    this.setState({menuOpen: !this.state.menuOpen})
+
+
+
+    this.setState({
+      menuOpen: !this.state.menuOpen,
+      tabIndexValue: !this.state.tabIndexValue
+    })
   }
 
   searchQuery = (query) => {
-      this.setState({query:query})
+      this.setState({
+        query:query,
+        selectedVenueID: ''
+      })
+   }
+
+   selectVenue = (selectedVenueID) => {
+     this.setState({selectedVenueID:selectedVenueID})
+     //console.log(selectedVenueID)
    }
 
   render() {
-    const { query } = this.state
+    const { query, selectedVenueID } = this.state
     const { venues, pageHeight } = this.props
 
     let showingVenues
@@ -54,16 +83,19 @@ class MapMain extends PureComponent {
           <Menu
             isOpen={this.state.menuOpen}
             onStateChange={(state) => this.handleStateChange(state)}
+            disableCloseOnEsc
           >
-            <div className="search-venues-input-wrapper" role="listbox" aria-label="Select Venues" tabIndex="0">
+            <div className="search-venues-input-wrapper" role="listbox" aria-label="Select Venues" tabIndex={this.state.tabIndexValue}>
               <img className="fourSquare" alt="Powered by fourSquare" src={require('./img/powered-by-foursquare-white.png')} />
               <input className="search-venues" type="text" placeholder="Search Venues"
-                aria-label="Search" tabIndex="0"
-                onChange={(event) => this.searchQuery(event.target.value)}
+                aria-label="Search" tabIndex={this.state.tabIndexValue}
+                onChange={(event) => { this.searchQuery(event.target.value)}}
                 />
             </div>
             {showingVenues.map(venue => {
-              return  <div className="menu-item" tabIndex="-1" aria-label={venue.venue.name} key={venue.venue.id} >{venue.venue.name}</div>
+              return <div className="menu-item" key={venue.venue.id} >
+                          <div tabIndex={this.state.tabIndexValue} aria-label={venue.venue.name} onFocus={()=>{this.selectVenue(venue.venue.name)}} >{venue.venue.name}</div>
+                     </div>
             })}
           </Menu>
 
@@ -75,6 +107,8 @@ class MapMain extends PureComponent {
             <MapContainer
               pageHeight = {pageHeight}
               showingVenues = {showingVenues}
+              selectVenueID={selectedVenueID}
+              menuOpen = {this.state.menuOpen}
              />
           </div>
           <footer className="App-footer">

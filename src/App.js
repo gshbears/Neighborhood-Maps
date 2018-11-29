@@ -16,7 +16,7 @@ class App extends Component {
 
     const venues =  await VenuesAPI.getAllVenues()
 
-    if ( typeof (venues[0].venue) === 'undefined') {
+    if ( typeof (venues) === 'undefined') {
       alert("Oops, Could not retrive Foursquare data. Possible conection and/or credential issue.")
       this.setState({
         venues : [],
