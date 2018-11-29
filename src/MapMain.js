@@ -10,42 +10,31 @@ class MapMain extends PureComponent {
   static propTypes =  {
     venues: PropTypes.array.isRequired
   }
+
   state = {
     menuOpen: false,
     showingVenues: [],
     query: '',
-    selectedVenueID: '',
-    tabIndexValue: -1
+    selectedVenueID: ''
   }
 
   // This keeps your state in sync with the opening/closing of the menu
   // via the default means, e.g. clicking the X, pressing the ESC key etc.
   handleStateChange (state) {
-    let tabindex
-    if (state.isOpen=== true){
-      tabindex = "0";
-    }else{
-      tabindex = "-1";
-    }
     this.setState({
-      menuOpen: state.isOpen,
-      tabIndexValue: tabindex
+      menuOpen: state.isOpen
     })
   }
   // This can be used to close the menu, e.g. when a user clicks a menu item
   closeMenu () {
     this.setState({
-      menuOpen: false,
-      tabIndexValue: "-1"
+      menuOpen: false
     })
   }
   // This can be used to toggle the menu, e.g. when using a custom icon
   // Tip: You probably want to hide either/both default icons if using a custom icon
   // See https://github.com/negomi/react-burger-menu#custom-icons
   toggleMenu () {
-
-
-
     this.setState({
       menuOpen: !this.state.menuOpen,
       tabIndexValue: !this.state.tabIndexValue
@@ -85,16 +74,16 @@ class MapMain extends PureComponent {
             onStateChange={(state) => this.handleStateChange(state)}
             disableCloseOnEsc
           >
-            <div className="search-venues-input-wrapper" role="listbox" aria-label="Select Venues" tabIndex={this.state.tabIndexValue}>
+            <div className="search-venues-input-wrapper" role="listbox" aria-label="Toggle Menu" tabIndex={0}>
               <img className="fourSquare" alt="Powered by fourSquare" src={require('./img/powered-by-foursquare-white.png')} />
               <input className="search-venues" type="text" placeholder="Search Venues"
-                aria-label="Search" tabIndex={this.state.tabIndexValue}
+                aria-label="Search" tabIndex={0}
                 onChange={(event) => { this.searchQuery(event.target.value)}}
                 />
             </div>
             {showingVenues.map(venue => {
               return <div className="menu-item" key={venue.venue.id} >
-                          <div tabIndex={this.state.tabIndexValue} aria-label={venue.venue.name} onFocus={()=>{this.selectVenue(venue.venue.name)}} >{venue.venue.name}</div>
+                          <div tabIndex={0} aria-label={venue.venue.name} onFocus={()=>{this.selectVenue(venue.venue.name)}} >{venue.venue.name}</div>
                      </div>
             })}
           </Menu>
